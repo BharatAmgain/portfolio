@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bharat Amgain - Python Developer{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
+    <!-- CSS and other meta tags -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Cosmic Navigation System -->
+    <div class="cosmic-navigation">
+        <!-- Central Navigation Orb -->
+        <div class="nav-orb">
+            <div class="orb-core">
+                <i class="fas fa-compass"></i>
+            </div>
+            <div class="orb-glow"></div>
+        </div>
+
+        <!-- Navigation Planets -->
+        <div class="nav-planets">
+            <div class="nav-planet home-planet" data-section="home">
+                <div class="planet-ring"></div>
+                <div class="planet-surface">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="planet-label">Home</span>
+            </div>
+
+            <div class="nav-planet about-planet" data-section="about">
+                <div class="planet-ring"></div>
+                <div class="planet-surface">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="planet-label">About</span>
+            </div>
+
+            <div class="nav-planet skills-planet" data-section="skills">
+                <div class="planet-ring"></div>
+                <div class="planet-surface">
+                    <i class="fas fa-code"></i>
+                </div>
+                <span class="planet-label">Skills</span>
+            </div>
+
+            <div class="nav-planet projects-planet" data-section="projects">
+                <div class="planet-ring"></div>
+                <div class="planet-surface">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <span class="planet-label">Projects</span>
+            </div>
+
+            <div class="nav-planet contact-planet" data-section="contact">
+                <div class="planet-ring"></div>
+                <div class="planet-surface">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <span class="planet-label">Contact</span>
+            </div>
+        </div>
+
+        <!-- Navigation Connections -->
+        <div class="nav-connections">
+            <div class="connection-line line-1"></div>
+            <div class="connection-line line-2"></div>
+            <div class="connection-line line-3"></div>
+            <div class="connection-line line-4"></div>
+            <div class="connection-line line-5"></div>
+        </div>
+    </div>
+
+    <!-- Floating Quick Access -->
+    <div class="floating-quick-access">
+        <div class="quick-orb code-orb" data-section="skills">
+            <div class="orb-icon">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <div class="orb-tooltip">Skills</div>
+        </div>
+
+        <div class="quick-orb project-orb" data-section="projects">
+            <div class="orb-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="orb-tooltip">Projects</div>
+        </div>
+
+        <div class="quick-orb contact-orb" data-section="contact">
+            <div class="orb-icon">
+                <i class="fas fa-paper-plane"></i>
+            </div>
+            <div class="orb-tooltip">Contact</div>
+        </div>
+    </div>
+
+    <!-- Section Progress Indicator -->
+    <div class="section-progress">
+        <div class="progress-dots">
+            <div class="progress-dot active" data-section="home"></div>
+            <div class="progress-dot" data-section="about"></div>
+            <div class="progress-dot" data-section="skills"></div>
+            <div class="progress-dot" data-section="projects"></div>
+            <div class="progress-dot" data-section="contact"></div>
+        </div>
+        <div class="progress-bar"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 lg:py-8 bg-gray-800 relative">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center gap-4 lg:gap-6 mb-4">
+                <a href="https://github.com/BharatAmgain" target="_blank" class="text-xl lg:text-2xl hover:text-cyan-400 transition-colors duration-300">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/bharat-amgai-815a69243" target="_blank" class="text-xl lg:text-2xl hover:text-cyan-400 transition-colors duration-300">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://twitter.com/Bharatamgain" target="_blank" class="text-xl lg:text-2xl hover:text-cyan-400 transition-colors duration-300">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="mailto:amgaibharat46@gmail.com" class="text-xl lg:text-2xl hover:text-cyan-400 transition-colors duration-300">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p class="text-gray-400 text-sm lg:text-base">&copy; 2024 Bharat Amgain. All rights reserved.</p>
+            <p class="text-gray-500 text-xs lg:text-sm mt-2">Kathmandu, Tarkeshwor-06, Bagmati Province</p>
+        </div>
+    </footer>
+
+    <!-- Messages/Notifications -->
+    {% if messages %}
+    <div class="fixed top-16 lg:top-20 right-4 lg:right-6 z-50 space-y-2">
+        {% for message in messages %}
+        <div class="bg-green-500 text-white px-4 lg:px-6 py-2 lg:py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out {% if message.tags %}{{ message.tags }}{% endif %}">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle"></i>
+                <span class="text-sm lg:text-base">{{ message }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

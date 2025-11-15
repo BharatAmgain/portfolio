@@ -1,0 +1,268 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Message Sent Successfully - Bharat Amgain{% endblock %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center relative py-16 lg:py-20">
+    <div class="container mx-auto px-6 text-center">
+        <!-- Success Animation -->
+        <div class="success-animation mb-6 lg:mb-8">
+            <div class="checkmark">
+                <svg class="checkmark__circle" width="80" height="80" viewBox="0 0 100 100">
+                    <circle class="checkmark__circle-background" cx="50" cy="50" r="45" fill="none" stroke="#10B981" stroke-width="5"/>
+                    <path class="checkmark__check" fill="none" stroke="#10B981" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M30,50 l15,15 l25,-25"/>
+                </svg>
+            </div>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 lg:mb-6 gradient-text">Thank You!</h1>
+
+        <div class="max-w-2xl mx-auto">
+            <p class="text-lg sm:text-xl lg:text-2xl mb-6 lg:mb-8 text-gray-300">
+                Your message has been sent successfully. I'll get back to you as soon as possible!
+            </p>
+
+            <div class="bg-gray-800/50 rounded-lg p-6 lg:p-8 mb-6 lg:mb-8 border border-cyan-400/20">
+                <h3 class="text-xl lg:text-2xl font-semibold mb-4 text-cyan-400">What's Next?</h3>
+                <div class="space-y-4 text-left">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-envelope text-cyan-400 mt-1 text-lg"></i>
+                        <div>
+                            <h4 class="font-semibold text-base lg:text-lg">Email Response</h4>
+                            <p class="text-gray-400 text-sm lg:text-base">I'll respond to your email within 24 hours</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-code text-cyan-400 mt-1 text-lg"></i>
+                        <div>
+                            <h4 class="font-semibold text-base lg:text-lg">Project Discussion</h4>
+                            <p class="text-gray-400 text-sm lg:text-base">We can discuss your project requirements in detail</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-rocket text-cyan-400 mt-1 text-lg"></i>
+                        <div>
+                            <h4 class="font-semibold text-base lg:text-lg">Let's Collaborate</h4>
+                            <p class="text-gray-400 text-sm lg:text-base">Looking forward to working with you!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+                <a href="{% url 'home' %}" class="glow-button px-6 lg:px-8 py-3 lg:py-4 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-semibold hover:scale-105 transition-transform duration-300 text-sm lg:text-base">
+                    <i class="fas fa-home mr-2"></i>Back to Home
+                </a>
+                <a href="#contact" class="border-2 border-cyan-400 px-6 lg:px-8 py-3 lg:py-4 rounded-lg text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-gray-900 transition-colors duration-300 text-sm lg:text-base">
+                    <i class="fas fa-paper-plane mr-2"></i>Send Another Message
+                </a>
+            </div>
+
+            <!-- Quick Contact Info -->
+            <div class="mt-8 lg:mt-12 p-4 lg:p-6 bg-gray-800/30 rounded-lg border border-gray-700">
+                <h4 class="text-lg font-semibold mb-3 lg:mb-4">Quick Contact</h4>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 text-gray-400 text-sm lg:text-base">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-envelope text-cyan-400"></i>
+                        <span>amgaibharat46@gmail.com</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-cyan-400"></i>
+                        <span>Kathmandu, Nepal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Floating elements for visual appeal -->
+<div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.success-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1.5rem;
+}
+
+.checkmark {
+    width: 80px;
+    height: 80px;
+}
+
+.checkmark__circle {
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    animation: draw-circle 0.6s ease-in-out forwards;
+}
+
+.checkmark__check {
+    stroke-dasharray: 65;
+    stroke-dashoffset: 65;
+    animation: draw-check 0.6s 0.6s ease-in-out forwards;
+}
+
+@keyframes draw-circle {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes draw-check {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.floating-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.shape {
+    position: absolute;
+    background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float-shapes 20s infinite linear;
+}
+
+.shape-1 {
+    width: 80px;
+    height: 80px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 120px;
+    height: 120px;
+    top: 60%;
+    right: 10%;
+    animation-delay: -5s;
+}
+
+.shape-3 {
+    width: 60px;
+    height: 60px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: -10s;
+}
+
+@keyframes float-shapes {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-15px) rotate(90deg);
+    }
+    50% {
+        transform: translateY(0) rotate(180deg);
+    }
+    75% {
+        transform: translateY(15px) rotate(270deg);
+    }
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #00f3ff, #ff00ff, #00ff00, #00f3ff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.glow-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.glow-button:hover {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto redirect after 10 seconds
+    setTimeout(() => {
+        // You can add a notification here if needed
+        console.log('You can now navigate back to home');
+    }, 10000);
+
+    // Add some confetti effect for celebration
+    createConfetti();
+});
+
+function createConfetti() {
+    const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'];
+    const container = document.querySelector('.success-animation');
+
+    for (let i = 0; i < 40; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.cssText = `
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            top: 50%;
+            left: 50%;
+            opacity: 0;
+            border-radius: 2px;
+            animation: confetti-fall ${Math.random() * 2 + 1.5}s ease-in forwards;
+        `;
+
+        document.body.appendChild(confetti);
+
+        // Remove confetti after animation
+        setTimeout(() => {
+            confetti.remove();
+        }, 4000);
+    }
+
+    // Add confetti animation to CSS
+    if (!document.querySelector('#confetti-style')) {
+        const style = document.createElement('style');
+        style.id = 'confetti-style';
+        style.textContent = `
+            @keyframes confetti-fall {
+                0% {
+                    transform: translate(0, 0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(${Math.random() * 150 - 75}px, 100vh) rotate(${Math.random() * 360}deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+</script>
+{% endblock %}

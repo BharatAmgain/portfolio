@@ -1,0 +1,1019 @@
+/* Cosmic Navigation System */
+.cosmic-navigation {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Central Navigation Orb */
+.nav-orb {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    animation: orb-pulse 4s ease-in-out infinite;
+}
+
+.orb-core {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #00f3ff, #ff00ff, #00ff00);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    color: white;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.orb-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: orb-glow-pulse 3s ease-in-out infinite;
+}
+
+.nav-orb:hover .orb-core {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+}
+
+/* Navigation Planets */
+.nav-planets {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+.nav-planet {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.planet-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.planet-surface {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    color: white;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.planet-label {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.nav-planet:hover .planet-label {
+    opacity: 1;
+    right: 110%;
+}
+
+/* Individual Planet Styles */
+.home-planet .planet-surface {
+    background: linear-gradient(45deg, #ff6b6b, #ffa726);
+}
+
+.about-planet .planet-surface {
+    background: linear-gradient(45deg, #4ecdc4, #00bcd4);
+}
+
+.skills-planet .planet-surface {
+    background: linear-gradient(45deg, #ffd93d, #ff9f43);
+}
+
+.projects-planet .planet-surface {
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+}
+
+.contact-planet .planet-surface {
+    background: linear-gradient(45deg, #00b894, #00cec9);
+}
+
+/* Planet Hover Effects */
+.nav-planet:hover .planet-surface {
+    transform: scale(1.15);
+    box-shadow: 0 0 15px currentColor;
+}
+
+.nav-planet:hover .planet-ring {
+    border-color: currentColor;
+    animation: ring-rotate 2s linear infinite;
+}
+
+/* Navigation Connections */
+.nav-connections {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(0, 243, 255, 0.5) 20%,
+        rgba(0, 243, 255, 0.5) 80%,
+        transparent 100%);
+}
+
+.connection-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 20px;
+    background: rgba(0, 243, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.line-1 { top: 0%; }
+.line-2 { top: 25%; }
+.line-3 { top: 50%; }
+.line-4 { top: 75%; }
+.line-5 { top: 100%; }
+
+.nav-planet:hover ~ .nav-connections .connection-line {
+    background: rgba(0, 243, 255, 0.8);
+    box-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+}
+
+/* Floating Quick Access */
+.floating-quick-access {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.quick-orb {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.orb-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.orb-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.quick-orb:hover .orb-tooltip {
+    opacity: 1;
+    bottom: 110%;
+}
+
+.quick-orb:hover .orb-icon {
+    transform: scale(1.15);
+    background: rgba(0, 243, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+}
+
+/* Individual Quick Orb Styles */
+.code-orb .orb-icon {
+    background: linear-gradient(45deg, #ffd93d, #ff9f43);
+}
+
+.project-orb .orb-icon {
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+}
+
+.contact-orb .orb-icon {
+    background: linear-gradient(45deg, #00b894, #00cec9);
+}
+
+/* Section Progress Indicator */
+.section-progress {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.progress-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.progress-dot.active {
+    background: #00f3ff;
+    box-shadow: 0 0 8px #00f3ff;
+    transform: scale(1.15);
+}
+
+.progress-dot:hover {
+    background: #00f3ff;
+    transform: scale(1.25);
+}
+
+.progress-dot::after {
+    content: attr(data-section);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.progress-dot:hover::after {
+    opacity: 1;
+    left: 110%;
+}
+
+.progress-bar {
+    width: 2px;
+    height: 150px;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(0, 243, 255, 0.5) 20%,
+        rgba(0, 243, 255, 0.5) 80%,
+        transparent 100%);
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: #00f3ff;
+    box-shadow: 0 0 8px #00f3ff;
+    transition: all 0.5s ease;
+}
+
+/* Animations */
+@keyframes orb-pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+    }
+}
+
+@keyframes orb-glow-pulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+@keyframes ring-rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .cosmic-navigation {
+        right: 10px;
+        gap: 20px;
+    }
+
+    .nav-orb {
+        width: 40px;
+        height: 40px;
+    }
+
+    .orb-core {
+        font-size: 0.9rem;
+    }
+
+    .orb-glow {
+        width: 60px;
+        height: 60px;
+    }
+
+    .nav-planet {
+        width: 30px;
+        height: 30px;
+    }
+
+    .planet-surface {
+        font-size: 0.7rem;
+    }
+
+    .planet-ring {
+        width: 40px;
+        height: 40px;
+    }
+
+    .section-progress {
+        left: 10px;
+    }
+
+    .floating-quick-access {
+        bottom: 15px;
+        gap: 12px;
+    }
+
+    .quick-orb {
+        width: 40px;
+        height: 40px;
+    }
+
+    .orb-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cosmic-navigation {
+        right: 8px;
+        gap: 15px;
+    }
+
+    .nav-orb {
+        width: 35px;
+        height: 35px;
+    }
+
+    .nav-planet {
+        width: 25px;
+        height: 25px;
+    }
+
+    .floating-quick-access {
+        bottom: 10px;
+        gap: 10px;
+    }
+
+    .quick-orb {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* Enhanced Background Effects */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, #0f0f0f, #1a1a2e, #16213e, #0f3460);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    z-index: -1;
+}
+
+.animated-bg::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%);
+    animation: bg-float 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes bg-float {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(-8px, -8px) scale(1.02);
+    }
+    50% {
+        transform: translate(8px, 4px) scale(1.01);
+    }
+    75% {
+        transform: translate(-4px, 8px) scale(1.03);
+    }
+}
+
+/* Navigation Activation Effects */
+.nav-planet.active .planet-surface {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px currentColor;
+    animation: planet-glow 2s ease-in-out infinite;
+}
+
+.nav-planet.active .planet-ring {
+    border-color: currentColor;
+    animation: ring-rotate 1.5s linear infinite;
+}
+
+@keyframes planet-glow {
+    0%, 100% {
+        box-shadow: 0 0 15px currentColor;
+    }
+    50% {
+        box-shadow: 0 0 25px currentColor, 0 0 35px currentColor;
+    }
+}
+
+/* Quick Orb Activation */
+.quick-orb.active .orb-icon {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+    animation: orb-bounce 1s ease-in-out infinite;
+}
+
+@keyframes orb-bounce {
+    0%, 100% {
+        transform: scale(1.2) translateY(0);
+    }
+    50% {
+        transform: scale(1.2) translateY(-4px);
+    }
+}
+
+/* Progress Bar Animation */
+.progress-bar.animated::after {
+    animation: progress-move 2s ease-in-out infinite;
+}
+
+@keyframes progress-move {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(4px);
+    }
+}
+
+/* Cosmic Particle Effects */
+.cosmic-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #00f3ff;
+    border-radius: 50%;
+    animation: particle-float linear infinite;
+}
+
+@keyframes particle-float {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(80px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Navigation Sound Effects (Visual) */
+.sound-wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border: 1px solid rgba(0, 243, 255, 0.5);
+    border-radius: 50%;
+    animation: sound-wave 0.5s ease-out;
+}
+
+@keyframes sound-wave {
+    to {
+        width: 80px;
+        height: 80px;
+        opacity: 0;
+    }
+}
+
+/* Project Planets */
+.projects-universe {
+    position: relative;
+    height: 400px;
+    margin: 2rem 0;
+}
+
+.project-planet {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    animation: planet-rotate linear infinite;
+}
+
+.planet-1 {
+    top: 20%;
+    left: 20%;
+    animation-duration: 20s;
+}
+
+.planet-2 {
+    top: 40%;
+    right: 25%;
+    animation-duration: 25s;
+}
+
+.planet-3 {
+    bottom: 30%;
+    left: 30%;
+    animation-duration: 30s;
+}
+
+.planet-surface {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid rgba(0, 243, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+.planet-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-planet:hover .planet-image {
+    transform: scale(1.1);
+}
+
+.project-info {
+    position: absolute;
+    top: 50%;
+    left: 120%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #00f3ff;
+    width: 250px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+}
+
+.project-planet:hover .project-info {
+    opacity: 1;
+}
+
+.tech-tag {
+    background: #00f3ff;
+    color: #000;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.project-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 50%;
+    animation: orbit-rotate linear infinite;
+}
+
+@keyframes planet-rotate {
+    from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@keyframes orbit-rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Project Cards */
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: #00f3ff;
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .projects-universe {
+        height: 300px;
+    }
+
+    .project-planet {
+        width: 80px;
+        height: 80px;
+    }
+
+    .project-info {
+        width: 200px;
+        padding: 8px;
+        left: 110%;
+    }
+
+    .tech-tag {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-universe {
+        height: 250px;
+    }
+
+    .project-info {
+        width: 180px;
+        left: 105%;
+    }
+}
+
+/* Circular Project Images */
+.circular-image-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid rgba(0, 243, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+    animation: circular-glow 3s ease-in-out infinite;
+}
+
+.circular-project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-planet:hover .circular-project-image {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.circular-card-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 2px solid rgba(0, 243, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+    animation: circular-glow 4s ease-in-out infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes circular-glow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        border-color: rgba(0, 243, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.6);
+        border-color: rgba(0, 243, 255, 0.8);
+    }
+}
+
+/* Project Planets */
+.projects-universe {
+    position: relative;
+    height: 400px;
+    margin: 2rem 0;
+}
+
+.project-planet {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    animation: planet-rotate linear infinite;
+}
+
+.planet-1 {
+    top: 20%;
+    left: 20%;
+    animation-duration: 20s;
+}
+
+.planet-2 {
+    top: 40%;
+    right: 25%;
+    animation-duration: 25s;
+}
+
+.planet-3 {
+    bottom: 30%;
+    left: 30%;
+    animation-duration: 30s;
+}
+
+.planet-surface {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.project-info {
+    position: absolute;
+    top: 50%;
+    left: 120%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #00f3ff;
+    width: 250px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+}
+
+.project-planet:hover .project-info {
+    opacity: 1;
+}
+
+.tech-tag {
+    background: #00f3ff;
+    color: #000;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.project-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 50%;
+    animation: orbit-rotate linear infinite;
+}
+
+@keyframes planet-rotate {
+    from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@keyframes orbit-rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Project Cards */
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: #00f3ff;
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Starfield Background */
+.starfield {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+        radial-gradient(2px 2px at 40px 70px, #00f3ff, transparent),
+        radial-gradient(1px 1px at 90px 40px, #ff00ff, transparent);
+    background-size: 200px 200px;
+    animation: stars-move 50s linear infinite;
+    z-index: -1;
+}
+
+@keyframes stars-move {
+    from { background-position: 0 0; }
+    to { background-position: 200px 200px; }
+}
+
+/* Nebula Text Effect */
+.nebula-text {
+    background: linear-gradient(45deg, #ff00ff, #00f3ff, #ff0066, #00ff00);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: nebula-shift 3s ease infinite;
+}
+
+@keyframes nebula-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Fade In Animation */
+.fade-in {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .projects-universe {
+        height: 300px;
+    }
+
+    .project-planet {
+        width: 80px;
+        height: 80px;
+    }
+
+    .project-info {
+        width: 200px;
+        padding: 8px;
+        left: 110%;
+    }
+
+    .tech-tag {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+    }
+
+    .circular-card-image {
+        height: 150px;
+        width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-universe {
+        height: 250px;
+    }
+
+    .project-info {
+        width: 180px;
+        left: 105%;
+    }
+}
