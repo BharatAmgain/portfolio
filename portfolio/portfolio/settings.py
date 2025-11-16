@@ -12,7 +12,12 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['bharatamgain.com.np', 'www.bharatamgain.com.np']
+ALLOWED_HOSTS = [
+    'portfolio-w0w0.onrender.com',
+    'bharatamgain.com.np',
+    'www.bharatamgain.com.np'
+]
+
 
 # Application definition
 INSTALLED_APPS = [
