@@ -13,20 +13,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body class="bg-gray-900 text-white overflow-x-hidden">
     <!-- Animated Background -->
     <div class="animated-bg"></div>
 
+
+
     <!-- Cosmic Navigation System -->
     <div class="cosmic-navigation">
-        <!-- Central Navigation Orb -->
+        <!-- Enhanced Central Navigation Orb -->
         <div class="nav-orb">
-            <div class="orb-core">
-                <i class="fas fa-compass"></i>
+            <div class="orb-rings">
+                <div class="orb-ring ring-1"></div>
+                <div class="orb-ring ring-2"></div>
+                <div class="orb-ring ring-3"></div>
             </div>
             <div class="orb-glow"></div>
+            <div class="orb-core">
+                <i class="fas fa-compass compass-icon"></i>
+            </div>
         </div>
 
         <!-- Navigation Planets -->
@@ -70,15 +78,6 @@
                 </div>
                 <span class="planet-label">Contact</span>
             </div>
-        </div>
-
-        <!-- Navigation Connections -->
-        <div class="nav-connections">
-            <div class="connection-line line-1"></div>
-            <div class="connection-line line-2"></div>
-            <div class="connection-line line-3"></div>
-            <div class="connection-line line-4"></div>
-            <div class="connection-line line-5"></div>
         </div>
     </div>
 
@@ -161,6 +160,7 @@
     {% endif %}
 
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/navigation.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

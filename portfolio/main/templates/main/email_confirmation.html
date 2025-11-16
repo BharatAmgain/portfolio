@@ -1,42 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(45deg, #00f3ff, #ff00ff); color: white; padding: 20px; text-align: center; }
-        .content { background: #f9f9f9; padding: 20px; border-radius: 5px; }
-        .footer { text-align: center; margin-top: 20px; color: #666; font-size: 12px; }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(45deg, #00f3ff, #ff00ff);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .thank-you {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .thank-you h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .info-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #00f3ff;
+        }
+        .expectations {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .expectations h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 12px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+        .highlight {
+            background: linear-gradient(45deg, #00f3ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+        ul {
+            text-align: left;
+            margin: 15px 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>✅ Message Received</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 18px;">Thank you for reaching out!</p>
         </div>
 
         <div class="content">
-            <h2>Thank you for your message, {{ name }}!</h2>
+            <div class="thank-you">
+                <h2>Hello <span class="highlight">{{ name }}</span>!</h2>
+                <p style="font-size: 16px; color: #666;">
+                    I have received your message and will get back to you as soon as possible.
+                </p>
+            </div>
 
-            <p>I have received your message and will get back to you as soon as possible.</p>
+            <div class="info-box">
+                <h3 style="color: #00f3ff; margin-top: 0;">📧 What's Next?</h3>
+                <p>I typically respond within <strong>24 hours</strong>. If your message is urgent, feel free to connect with me on other platforms.</p>
+            </div>
 
-            <p><strong>What to expect:</strong></p>
-            <ul>
-                <li>I typically respond within 24 hours</li>
-                <li>I'll address all your questions and requirements</li>
-                <li>We can schedule a call to discuss your project in detail</li>
-            </ul>
+            <div class="expectations">
+                <h3>🚀 What to Expect</h3>
+                <ul>
+                    <li><strong>Quick Response:</strong> I'll reply to your message within 24 hours</li>
+                    <li><strong>Detailed Discussion:</strong> We'll address all your questions and requirements</li>
+                    <li><strong>Project Planning:</strong> If needed, we can schedule a call to discuss your project</li>
+                    <li><strong>Professional Service:</strong> Quality work and clear communication guaranteed</li>
+                </ul>
+            </div>
 
-            <p>In the meantime, feel free to check out my portfolio for more examples of my work.</p>
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 8px;">
+                <p style="margin: 0; color: #856404;">
+                    <strong>💼 In the meantime:</strong> Check out my portfolio for more examples of my work and projects.
+                </p>
+            </div>
 
-            <p>Best regards,<br>
-            <strong>Bharat Amgain</strong><br>
-            Python & Full Stack Developer</p>
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 16px;">
+                    Best regards,<br>
+                    <strong style="font-size: 18px; background: linear-gradient(45deg, #00f3ff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        Bharat Amgain
+                    </strong><br>
+                    <span style="color: #666;">Python & Full Stack Developer</span>
+                </p>
+            </div>
         </div>
 
         <div class="footer">
-            <p>This is an automated confirmation email.</p>
-            <p>© 2024 Bharat Amgain. All rights reserved.</p>
+            <p>This is an automated confirmation email sent from my portfolio website.</p>
+            <p>© 2024 Bharat Amgain. All rights reserved. | Kathmandu, Nepal</p>
         </div>
     </div>
 </body>
