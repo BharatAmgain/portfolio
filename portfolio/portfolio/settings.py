@@ -12,7 +12,7 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 
 DEBUG = True
 ALLOWED_HOSTS = [
-    'portfolio-oek1.onrender.com',
+    'BharatAmgain-oek1.onrender.com',
     'bharatamgain.com.np',
     'www.bharatamgain.com.np'
 ]
