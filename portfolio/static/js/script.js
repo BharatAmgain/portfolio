@@ -1,367 +1,252 @@
-// ===== MAIN SCRIPT.JS - ALL FUNCTIONALITY =====
+// ===== ENHANCED NAVIGATION SYSTEM =====
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    initMatrixEffect();
-    initOrbitalSkills();
-    initCyberTerminal();
-    initProgressBars();
-    initFloatingElements();
-    initSkillsSection();
-    initTypingAnimation();
-    initCircularImageEffects();
+    initCosmicNavigation();
+    initQuickAccess();
+    initSectionProgress();
+    createCosmicParticles();
+    initSmoothScrolling();
+    initSectionObservers();
     initProjectPlanets();
+    initSkillsAnimations();
     initContactForm();
+    initTypingAnimation();
     initScrollAnimations();
-    initParallaxEffects();
 });
 
-// ===== MATRIX EFFECT =====
-function initMatrixEffect() {
-    const matrixBg = document.querySelector('.matrix-background');
-    if (matrixBg) {
-        // Create falling code characters
-        for (let i = 0; i < 30; i++) {
-            createMatrixChar();
-        }
-    }
-}
+function initCosmicNavigation() {
+    const navOrb = document.querySelector('.nav-orb');
+    const navPlanets = document.querySelectorAll('.nav-planet');
 
-function createMatrixChar() {
-    const char = document.createElement('div');
-    char.textContent = String.fromCharCode(0x30A0 + Math.random() * 96);
-    char.style.cssText = `
-        position: fixed;
-        color: #00ff00;
-        font-family: monospace;
-        font-size: ${Math.random() * 8 + 8}px;
-        left: ${Math.random() * 100}%;
-        top: -20px;
-        animation: matrix-fall ${Math.random() * 4 + 2}s linear infinite;
-        opacity: ${Math.random() * 0.3 + 0.1};
-        z-index: 1;
-        pointer-events: none;
-    `;
-    document.body.appendChild(char);
-
-    // Remove character after animation
-    setTimeout(() => {
-        if (char.parentNode) {
-            char.remove();
-        }
-    }, 6000);
-}
-
-// Add matrix fall animation
-const matrixStyle = document.createElement('style');
-matrixStyle.textContent = `
-    @keyframes matrix-fall {
-        0% {
-            transform: translateY(-100px) rotate(0deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(100vh) rotate(360deg);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(matrixStyle);
-
-// ===== ORBITAL SKILLS =====
-function initOrbitalSkills() {
-    const skills = [
-        { name: 'Python', icon: 'python' },
-        { name: 'Django', icon: 'python' },
-        { name: 'ReactJS', icon: 'react' },
-        { name: 'JavaScript', icon: 'js' },
-        { name: 'HTML5', icon: 'html5' },
-        { name: 'CSS3', icon: 'css3-alt' },
-        { name: 'Tailwind CSS', icon: 'css3' },
-        { name: 'Bootstrap', icon: 'bootstrap' },
-        { name: 'Postman', icon: 'postman' },
-        { name: 'Figma', icon: 'figma' },
-        { name: 'PHP', icon: 'php' }
-    ];
-
-    const orbitContainer = document.querySelector('.orbiting-skills');
-    if (orbitContainer) {
-        orbitContainer.innerHTML = '';
-
-        skills.forEach((skill, index) => {
-            const angle = (index / skills.length) * 2 * Math.PI;
-            const radius = 150;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-
-            const skillOrb = document.createElement('div');
-            skillOrb.className = `skill-orb orb-${index + 1}`;
-            skillOrb.style.cssText = `
-                transform: translate(${x}px, ${y}px);
-                animation-duration: ${20 + index * 2}s;
-            `;
-
-            skillOrb.innerHTML = `
-                <div class="skill-content">
-                    <i class="fab fa-${skill.icon}"></i>
-                    <span class="skill-name">${skill.name}</span>
-                </div>
-            `;
-
-            orbitContainer.appendChild(skillOrb);
+    // Central orb click - toggle navigation expansion
+    if (navOrb) {
+        navOrb.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            const navPlanetsContainer = document.querySelector('.nav-planets');
+            if (navPlanetsContainer) {
+                navPlanetsContainer.classList.toggle('expanded');
+            }
+            createSoundWave(this);
         });
     }
-}
 
-// ===== CYBER TERMINAL =====
-function initCyberTerminal() {
-    const terminalBody = document.querySelector('.terminal-body');
-    if (!terminalBody) return;
+    // Planet click navigation
+    navPlanets.forEach(planet => {
+        planet.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const section = this.getAttribute('data-section');
+            navigateToSection(section);
+            createSoundWave(this);
+            activatePlanet(this);
 
-    const messages = [
-        { text: "Connection established...", delay: 1000 },
-        { text: "Welcome to my contact terminal!", delay: 1500 },
-        { text: "Ready to receive your message.", delay: 1000 },
-        { text: "message_input:~$ ", delay: 500, isPrompt: true }
-    ];
-
-    let currentMessage = 0;
-
-    function displayNextMessage() {
-        if (currentMessage >= messages.length) return;
-
-        const message = messages[currentMessage];
-        const line = document.createElement('div');
-        line.className = 'terminal-line';
-
-        if (message.isPrompt) {
-            line.innerHTML = `
-                <span class="prompt">${message.text}</span>
-                <span class="cursor">_</span>
-            `;
-        } else {
-            line.innerHTML = `<span class="output">${message.text}</span>`;
-        }
-
-        terminalBody.appendChild(line);
-
-        // Scroll to bottom
-        terminalBody.scrollTop = terminalBody.scrollHeight;
-
-        currentMessage++;
-        if (currentMessage < messages.length) {
-            setTimeout(displayNextMessage, message.delay);
-        }
-    }
-
-    // Start terminal animation
-    setTimeout(displayNextMessage, 1000);
-}
-
-// ===== PROGRESS BARS =====
-function initProgressBars() {
-    const progressBars = document.querySelectorAll('.progress-fill');
-    progressBars.forEach(bar => {
-        const width = bar.getAttribute('data-width');
-        setTimeout(() => {
-            bar.style.width = width;
-        }, 500);
-    });
-
-    // Animate skill level bars
-    const levelBars = document.querySelectorAll('.level-bar');
-    levelBars.forEach(bar => {
-        const level = bar.getAttribute('data-level');
-        setTimeout(() => {
-            bar.style.width = level + '%';
-        }, 800);
-    });
-}
-
-// ===== FLOATING ELEMENTS =====
-function initFloatingElements() {
-    // Add floating animation to elements
-    const floatingElements = document.querySelectorAll('.floating-text-block');
-    floatingElements.forEach((el, index) => {
-        el.style.animationDelay = `${index * 0.2}s`;
-    });
-
-    // Animate tech elements
-    const techElements = document.querySelectorAll('.tech-element');
-    techElements.forEach((el, index) => {
-        el.style.animationDelay = `${index * 0.5}s`;
-    });
-}
-
-// ===== SKILLS SECTION =====
-function initSkillsSection() {
-    animateSkillBars();
-    initSkillInteractions();
-    createFloatingParticles();
-}
-
-function animateSkillBars() {
-    const skillBars = document.querySelectorAll('.level-bar');
-
-    skillBars.forEach(bar => {
-        const level = bar.getAttribute('data-level');
-        setTimeout(() => {
-            bar.style.width = level + '%';
-        }, 500);
-    });
-}
-
-function initSkillInteractions() {
-    const skillItems = document.querySelectorAll('.skill-item, .skill-card');
-
-    skillItems.forEach(skill => {
-        skill.addEventListener('mouseenter', function() {
-            const skillType = this.getAttribute('data-skill');
-            createSkillParticles(this);
-            highlightRelatedSkills(skillType);
+            // Close navigation on mobile after click
+            if (window.innerWidth <= 768) {
+                closeNavigation();
+            }
         });
 
-        skill.addEventListener('mouseleave', function() {
-            removeSkillHighlights();
+        // Hover effects
+        planet.addEventListener('mouseenter', function() {
+            createParticleBurst(this);
         });
+    });
 
-        // Click effect
-        skill.addEventListener('click', function() {
-            this.style.transform = 'scale(0.95)';
+    // Close navigation when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.cosmic-navigation')) {
+            closeNavigation();
+        }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.altKey) {
+            const key = e.key.toLowerCase();
+            const sectionMap = {
+                '1': 'home',
+                '2': 'about',
+                '3': 'skills',
+                '4': 'projects',
+                '5': 'contact'
+            };
+
+            if (sectionMap[key]) {
+                navigateToSection(sectionMap[key]);
+                closeNavigation();
+            }
+        }
+
+        // Close navigation on Escape key
+        if (e.key === 'Escape') {
+            closeNavigation();
+        }
+    });
+}
+
+function closeNavigation() {
+    const navOrb = document.querySelector('.nav-orb');
+    const navPlanets = document.querySelector('.nav-planets');
+
+    if (navOrb) navOrb.classList.remove('active');
+    if (navPlanets) navPlanets.classList.remove('expanded');
+}
+
+function initQuickAccess() {
+    const quickOrbs = document.querySelectorAll('.quick-orb');
+
+    quickOrbs.forEach(orb => {
+        orb.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const section = this.getAttribute('data-section');
+            navigateToSection(section);
+
+            // Visual feedback
+            this.classList.add('active');
             setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
+                this.classList.remove('active');
+            }, 1000);
+
+            createParticleBurst(this);
         });
     });
 }
 
-function createSkillParticles(element) {
+function initSectionProgress() {
+    const progressDots = document.querySelectorAll('.progress-dot');
+
+    progressDots.forEach(dot => {
+        dot.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const section = this.getAttribute('data-section');
+            navigateToSection(section);
+        });
+    });
+}
+
+function navigateToSection(section) {
+    const targetSection = document.getElementById(section);
+    if (targetSection) {
+        // Smooth scroll to section
+        targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+
+        // Update active states
+        updateActiveStates(section);
+
+        // Create navigation effect
+        createNavigationEffect(section);
+    }
+}
+
+function updateActiveStates(activeSection) {
+    // Update progress dots
+    document.querySelectorAll('.progress-dot').forEach(dot => {
+        const isActive = dot.getAttribute('data-section') === activeSection;
+        dot.classList.toggle('active', isActive);
+
+        // Add visual feedback for active dot
+        if (isActive) {
+            createDotPulse(dot);
+        }
+    });
+
+    // Update nav planets
+    document.querySelectorAll('.nav-planet').forEach(planet => {
+        planet.classList.toggle('active', planet.getAttribute('data-section') === activeSection);
+    });
+
+    // Update progress bar position
+    updateProgressBar(activeSection);
+}
+
+function updateProgressBar(section) {
+    const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+    const progress = (sections.indexOf(section) / (sections.length - 1)) * 100;
+    const progressBar = document.querySelector('.progress-bar');
+
+    if (progressBar) {
+        progressBar.style.setProperty('--progress', `${progress}%`);
+    }
+}
+
+function createNavigationEffect(section) {
+    // Create portal effect
+    const portal = document.createElement('div');
+    portal.className = 'navigation-portal';
+    portal.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0, 243, 255, 0.8) 0%, transparent 70%);
+        z-index: 9999;
+        pointer-events: none;
+        animation: portal-open 0.6s ease-out;
+    `;
+
+    document.body.appendChild(portal);
+
+    setTimeout(() => {
+        if (portal.parentNode) {
+            portal.remove();
+        }
+    }, 600);
+}
+
+function createSoundWave(element) {
+    const soundWave = document.createElement('div');
+    soundWave.className = 'sound-wave';
+    element.appendChild(soundWave);
+
+    setTimeout(() => {
+        if (soundWave.parentNode) {
+            soundWave.remove();
+        }
+    }, 500);
+}
+
+function createParticleBurst(element) {
     const rect = element.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
     for (let i = 0; i < 8; i++) {
-        createSkillParticle(centerX, centerY);
+        createParticle(centerX, centerY);
     }
 }
 
-function createSkillParticle(x, y) {
+function createParticle(x, y) {
     const particle = document.createElement('div');
-    particle.className = 'skill-particle';
+    particle.className = 'particle';
+
+    // Random direction and distance
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 30 + Math.random() * 50;
+    const tx = Math.cos(angle) * distance;
+    const ty = Math.sin(angle) * distance;
+
+    const duration = Math.random() * 1.5 + 0.5;
+    const size = Math.random() * 3 + 2;
+
     particle.style.cssText = `
-        position: fixed;
-        width: 4px;
-        height: 4px;
-        background: #00f3ff;
-        border-radius: 50%;
         left: ${x}px;
         top: ${y}px;
-        pointer-events: none;
-        z-index: 100;
-        animation: skill-particle-float 1s ease-out forwards;
-    `;
-
-    document.body.appendChild(particle);
-
-    setTimeout(() => {
-        if (particle.parentNode) {
-            particle.remove();
-        }
-    }, 1000);
-}
-
-// Add particle animation to CSS
-const skillParticleStyle = document.createElement('style');
-skillParticleStyle.textContent = `
-    @keyframes skill-particle-float {
-        0% {
-            transform: translate(0, 0) scale(1);
-            opacity: 1;
-        }
-        100% {
-            transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(0);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(skillParticleStyle);
-
-function highlightRelatedSkills(skillType) {
-    const relatedSkills = {
-        'python': ['django', 'postgresql'],
-        'django': ['python', 'postgresql'],
-        'javascript': ['react', 'html', 'css'],
-        'react': ['javascript', 'html', 'css'],
-        'html': ['css', 'javascript'],
-        'css': ['html', 'javascript']
-    };
-
-    const skillsToHighlight = relatedSkills[skillType] || [];
-
-    skillsToHighlight.forEach(relatedSkill => {
-        const elements = document.querySelectorAll(`[data-skill="${relatedSkill}"]`);
-        elements.forEach(el => {
-            el.style.background = 'rgba(0, 243, 255, 0.1)';
-            el.style.borderColor = '#00f3ff';
-        });
-    });
-}
-
-function removeSkillHighlights() {
-    const skillItems = document.querySelectorAll('.skill-item, .skill-card');
-    skillItems.forEach(item => {
-        item.style.background = '';
-        item.style.borderColor = '';
-    });
-}
-
-function createFloatingParticles() {
-    const particlesContainer = document.createElement('div');
-    particlesContainer.className = 'skills-particles';
-    particlesContainer.style.cssText = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: -1;
-    `;
-
-    const skillsSection = document.querySelector('#skills');
-    if (skillsSection) {
-        skillsSection.appendChild(particlesContainer);
-
-        // Create initial particles
-        for (let i = 0; i < 15; i++) {
-            createFloatingParticle(particlesContainer);
-        }
-
-        // Continuous particle creation
-        setInterval(() => {
-            createFloatingParticle(particlesContainer);
-        }, 2000);
-    }
-}
-
-function createFloatingParticle(container) {
-    const particle = document.createElement('div');
-    const size = Math.random() * 3 + 1;
-    const duration = Math.random() * 6 + 4;
-
-    particle.style.cssText = `
-        position: absolute;
         width: ${size}px;
         height: ${size}px;
-        background: ${Math.random() > 0.5 ? '#00f3ff' : '#ff00ff'};
-        border-radius: 50%;
-        left: ${Math.random() * 100}%;
-        top: -20px;
-        animation: floating-particle ${duration}s linear forwards;
-        opacity: ${Math.random() * 0.5 + 0.2};
+        background: hsl(${Math.random() * 360}, 100%, 70%);
+        animation-duration: ${duration}s;
+        --tx: ${tx}px;
+        --ty: ${ty}px;
     `;
 
-    container.appendChild(particle);
+    const particlesContainer = document.querySelector('.cosmic-particles') || createCosmicParticlesContainer();
+    particlesContainer.appendChild(particle);
 
     setTimeout(() => {
         if (particle.parentNode) {
@@ -370,50 +255,183 @@ function createFloatingParticle(container) {
     }, duration * 1000);
 }
 
-// Add floating particle animation to CSS
-const floatingParticleStyle = document.createElement('style');
-floatingParticleStyle.textContent = `
-    @keyframes floating-particle {
+function createCosmicParticlesContainer() {
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'cosmic-particles';
+    document.body.appendChild(particlesContainer);
+    return particlesContainer;
+}
+
+function createCosmicParticles() {
+    const particlesContainer = createCosmicParticlesContainer();
+
+    // Create initial particles
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            createRandomParticle();
+        }, i * 100);
+    }
+
+    // Continuous particle creation
+    setInterval(createRandomParticle, 200);
+}
+
+function createRandomParticle() {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+
+    const startX = Math.random() * window.innerWidth;
+    const size = Math.random() * 2 + 1;
+    const duration = Math.random() * 4 + 3;
+
+    // Random direction
+    const tx = (Math.random() - 0.5) * 100;
+    const ty = -100 - Math.random() * 50;
+
+    particle.style.cssText = `
+        left: ${startX}px;
+        top: 100vh;
+        width: ${size}px;
+        height: ${size}px;
+        background: hsl(${Math.random() * 360}, 100%, 70%);
+        animation-duration: ${duration}s;
+        --tx: ${tx}px;
+        --ty: ${ty}px;
+    `;
+
+    const particlesContainer = document.querySelector('.cosmic-particles');
+    if (particlesContainer) {
+        particlesContainer.appendChild(particle);
+
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.remove();
+            }
+        }, duration * 1000);
+    }
+}
+
+function initSmoothScrolling() {
+    // Add smooth scrolling behavior to all internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // Close mobile navigation if open
+                    closeNavigation();
+                }
+            }
+        });
+    });
+}
+
+function initSectionObservers() {
+    const sections = document.querySelectorAll('section[id]');
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50% 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const activeSection = entry.target.id;
+                updateActiveStates(activeSection);
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+}
+
+function createDotPulse(dot) {
+    const pulse = document.createElement('div');
+    pulse.className = 'dot-pulse';
+    pulse.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border: 2px solid #00f3ff;
+        border-radius: 50%;
+        animation: dot-pulse-expand 0.6s ease-out forwards;
+        pointer-events: none;
+    `;
+
+    dot.appendChild(pulse);
+
+    setTimeout(() => {
+        if (pulse.parentNode) {
+            pulse.remove();
+        }
+    }, 600);
+}
+
+// Add dot pulse animation to CSS
+const dotPulseStyle = document.createElement('style');
+dotPulseStyle.textContent = `
+    @keyframes dot-pulse-expand {
         0% {
-            transform: translateY(0) translateX(0) rotate(0deg);
-            opacity: 0;
-        }
-        10% {
-            opacity: 1;
-        }
-        90% {
+            transform: translate(-50%, -50%) scale(1);
             opacity: 1;
         }
         100% {
-            transform: translateY(100vh) translateX(${Math.random() * 100 - 50}px) rotate(${Math.random() * 360}deg);
+            transform: translate(-50%, -50%) scale(2);
             opacity: 0;
         }
     }
 `;
-document.head.appendChild(floatingParticleStyle);
+document.head.appendChild(dotPulseStyle);
 
-// ===== TYPING ANIMATION =====
-function initTypingAnimation() {
-    const typingElement = document.querySelector('.typing-animation');
-    if (typingElement) {
-        // Typing animation is handled by CSS
-        console.log('Typing animation initialized');
-    }
+// Mouse follower effect
+document.addEventListener('mousemove', function(e) {
+    const follower = document.querySelector('.mouse-follower') || createMouseFollower();
+    follower.style.left = e.clientX + 'px';
+    follower.style.top = e.clientY + 'px';
+});
+
+function createMouseFollower() {
+    const follower = document.createElement('div');
+    follower.className = 'mouse-follower';
+    follower.style.cssText = `
+        position: fixed;
+        width: 15px;
+        height: 15px;
+        background: radial-gradient(circle, rgba(0, 243, 255, 0.3) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.1s ease;
+    `;
+    document.body.appendChild(follower);
+    return follower;
 }
 
-// ===== CIRCULAR IMAGE EFFECTS =====
-function initCircularImageEffects() {
-    const circularImages = document.querySelectorAll('.circular-project-image');
-
-    circularImages.forEach(image => {
-        image.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1) rotate(5deg)';
-        });
-
-        image.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) rotate(0deg)';
-        });
+// Activate planet function
+function activatePlanet(planet) {
+    // Remove active class from all planets
+    document.querySelectorAll('.nav-planet').forEach(p => {
+        p.classList.remove('active');
     });
+
+    // Add active class to clicked planet
+    planet.classList.add('active');
+
+    // Create activation effect
+    createSoundWave(planet);
+    createParticleBurst(planet);
 }
 
 // ===== PROJECT PLANETS FUNCTIONALITY =====
@@ -621,6 +639,37 @@ function closeProjectModal() {
     }
 }
 
+// ===== SKILLS ANIMATIONS =====
+function initSkillsAnimations() {
+    // Animate skill bars on scroll
+    const skillBars = document.querySelectorAll('.level-bar');
+    const progressBars = document.querySelectorAll('.progress-fill');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const level = entry.target.getAttribute('data-level');
+                if (level) {
+                    setTimeout(() => {
+                        entry.target.style.width = level + '%';
+                    }, 200);
+                }
+
+                // Animate progress bars
+                if (entry.target.classList.contains('progress-fill')) {
+                    const width = entry.target.getAttribute('data-width');
+                    setTimeout(() => {
+                        entry.target.style.width = width;
+                    }, 500);
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    skillBars.forEach(bar => observer.observe(bar));
+    progressBars.forEach(bar => observer.observe(bar));
+}
+
 // ===== CONTACT FORM =====
 function initContactForm() {
     const contactForm = document.querySelector('.holographic-form');
@@ -689,6 +738,15 @@ function showFormSuccess() {
     }, 5000);
 }
 
+// ===== TYPING ANIMATION =====
+function initTypingAnimation() {
+    const typingElement = document.querySelector('.typing-animation');
+    if (typingElement) {
+        // Typing animation is handled by CSS
+        console.log('Typing animation initialized');
+    }
+}
+
 // ===== SCROLL ANIMATIONS =====
 function initScrollAnimations() {
     const observerOptions = {
@@ -709,47 +767,46 @@ function initScrollAnimations() {
     animateElements.forEach(el => observer.observe(el));
 }
 
-// ===== PARALLAX EFFECTS =====
-function initParallaxEffects() {
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const parallaxElements = document.querySelectorAll('.parallax');
-
-        parallaxElements.forEach(element => {
-            const speed = element.dataset.speed || 0.5;
-            element.style.transform = `translateY(${scrolled * speed}px)`;
+// ===== MOBILE NAVIGATION INITIALIZATION =====
+function initMobileNavigation() {
+    // Add touch events for mobile
+    const navOrb = document.querySelector('.nav-orb');
+    if (navOrb) {
+        navOrb.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.classList.toggle('active');
+            const navPlanetsContainer = document.querySelector('.nav-planets');
+            if (navPlanetsContainer) {
+                navPlanetsContainer.classList.toggle('expanded');
+            }
+            createSoundWave(this);
         });
+    }
+
+    // Close navigation when touching outside on mobile
+    document.addEventListener('touchstart', function(e) {
+        if (!e.target.closest('.cosmic-navigation')) {
+            closeNavigation();
+        }
     });
 }
 
-// ===== LOADING ANIMATIONS =====
-window.addEventListener('load', function() {
-    document.body.classList.add('loaded');
-
-    // Remove loading spinner if exists
-    const loader = document.querySelector('.page-loader');
-    if (loader) {
-        loader.style.display = 'none';
-    }
-});
-
-// ===== RESIZE HANDLER =====
+// Handle window resize
 window.addEventListener('resize', function() {
-    // Reinitialize components on resize if needed
-    initOrbitalSkills();
-});
-
-// ===== ERROR HANDLING =====
-window.addEventListener('error', function(e) {
-    console.error('Error occurred:', e.error);
+    // Close navigation on mobile orientation change
+    if (window.innerWidth <= 768) {
+        closeNavigation();
+    }
 });
 
 // Export functions for global access
 window.Portfolio = {
-    initMatrixEffect,
-    initOrbitalSkills,
-    initCyberTerminal,
-    initProjectPlanets,
+    navigateToSection,
+    closeNavigation,
+    updateActiveStates,
     openProjectModal,
     closeProjectModal
 };
+
+// Initialize mobile navigation
+initMobileNavigation();

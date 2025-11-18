@@ -14,15 +14,19 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Updated ALLOWED_HOSTS to fix the error
+# In your settings.py
 ALLOWED_HOSTS = [
     'bharatamgain.com.np',
     'www.bharatamgain.com.np',
     'bharatamgain.onrender.com',
     'localhost',
     '127.0.0.1',
-    '.onrender.com',  # This allows all Render subdomains
+    '.onrender.com',
 ]
+
+# Force HTTPS for custom domain
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 INSTALLED_APPS = [
