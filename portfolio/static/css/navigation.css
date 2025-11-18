@@ -1,0 +1,557 @@
+/* ===== COSMIC NAVIGATION SYSTEM ===== */
+.cosmic-navigation {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+/* Central Navigation Orb */
+.nav-orb {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #00f3ff, #ff00ff);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.nav-orb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+}
+
+.nav-orb.active {
+    transform: scale(1.2);
+    box-shadow: 0 0 40px rgba(0, 243, 255, 1);
+}
+
+.orb-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orb-ring {
+    position: absolute;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 50%;
+    animation: ring-pulse 3s ease-in-out infinite;
+}
+
+.ring-1 {
+    width: 80px;
+    height: 80px;
+    top: -10px;
+    left: -10px;
+    animation-delay: 0s;
+}
+
+.ring-2 {
+    width: 100px;
+    height: 100px;
+    top: -20px;
+    left: -20px;
+    animation-delay: 0.5s;
+}
+
+.ring-3 {
+    width: 120px;
+    height: 120px;
+    top: -30px;
+    left: -30px;
+    animation-delay: 1s;
+}
+
+.orb-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: orb-glow-pulse 2s ease-in-out infinite;
+}
+
+.orb-core {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.compass-icon {
+    color: #00f3ff;
+    font-size: 1.2rem;
+    animation: compass-spin 4s linear infinite;
+}
+
+/* Navigation Planets */
+.nav-planets {
+    position: absolute;
+    top: 50%;
+    right: 80px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.nav-planets.expanded {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(-10px);
+}
+
+.nav-planet {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(45deg, var(--planet-color, #00f3ff), #007bff);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.nav-planets.expanded .nav-planet {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.nav-planet:nth-child(1) { --planet-color: #00f3ff; transition-delay: 0.1s; }
+.nav-planet:nth-child(2) { --planet-color: #ff00ff; transition-delay: 0.2s; }
+.nav-planet:nth-child(3) { --planet-color: #00ff00; transition-delay: 0.3s; }
+.nav-planet:nth-child(4) { --planet-color: #ff9900; transition-delay: 0.4s; }
+.nav-planet:nth-child(5) { --planet-color: #9966ff; transition-delay: 0.5s; }
+
+.nav-planet:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px var(--planet-color);
+}
+
+.nav-planet.active {
+    transform: scale(1.3);
+    box-shadow: 0 0 25px var(--planet-color);
+}
+
+.planet-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--planet-color);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-planet.active .planet-ring {
+    opacity: 0.5;
+    animation: planet-ring-rotate 3s linear infinite;
+}
+
+.planet-surface {
+    width: 35px;
+    height: 35px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.planet-label {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.nav-planet:hover .planet-label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(-5px);
+}
+
+/* Floating Quick Access */
+.floating-quick-access {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.quick-orb {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #00f3ff, #007bff);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+}
+
+.quick-orb:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.6);
+}
+
+.quick-orb.active {
+    animation: quick-orb-pulse 0.5s ease;
+}
+
+.orb-icon {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.orb-tooltip {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.quick-orb:hover .orb-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+/* Section Progress Indicator */
+.section-progress {
+    position: fixed;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.progress-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.progress-dot:hover {
+    background: rgba(0, 243, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.progress-dot.active {
+    background: #00f3ff;
+    box-shadow: 0 0 10px #00f3ff;
+    transform: scale(1.3);
+}
+
+.progress-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.progress-dot.active::after {
+    opacity: 1;
+    animation: dot-pulse 2s ease-in-out infinite;
+}
+
+.progress-bar {
+    width: 2px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--progress, 0%);
+    background: linear-gradient(to bottom, #00f3ff, #ff00ff);
+    transition: height 0.3s ease;
+}
+
+/* Animations */
+@keyframes ring-pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes orb-glow-pulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+@keyframes compass-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes planet-ring-rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes quick-orb-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes dot-pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.6;
+    }
+}
+
+@keyframes portal-open {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 100vmax;
+        height: 100vmax;
+        opacity: 0;
+    }
+}
+
+/* Sound Wave Effect */
+.sound-wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border: 2px solid #00f3ff;
+    border-radius: 50%;
+    animation: sound-wave-expand 0.5s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes sound-wave-expand {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Cosmic Particles */
+.cosmic-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-float linear forwards;
+}
+
+@keyframes particle-float {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx, 0), var(--ty, 0)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Mouse Follower */
+.mouse-follower {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cosmic-navigation {
+        right: 15px;
+    }
+
+    .nav-orb {
+        width: 50px;
+        height: 50px;
+    }
+
+    .orb-core {
+        width: 30px;
+        height: 30px;
+    }
+
+    .nav-planets {
+        right: 65px;
+    }
+
+    .nav-planet {
+        width: 35px;
+        height: 35px;
+    }
+
+    .planet-surface {
+        width: 25px;
+        height: 25px;
+        font-size: 0.7rem;
+    }
+
+    .section-progress {
+        left: 15px;
+    }
+
+    .floating-quick-access {
+        bottom: 20px;
+    }
+
+    .quick-orb {
+        width: 40px;
+        height: 40px;
+    }
+
+    .orb-icon {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cosmic-navigation {
+        display: none;
+    }
+
+    .section-progress {
+        display: none;
+    }
+
+    .floating-quick-access {
+        bottom: 15px;
+        gap: 10px;
+    }
+
+    .quick-orb {
+        width: 35px;
+        height: 35px;
+    }
+
+    .orb-icon {
+        font-size: 0.8rem;
+    }
+}
