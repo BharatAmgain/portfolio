@@ -13,7 +13,6 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 DEBUG = True
 ALLOWED_HOSTS = [
     'bharatamgain.com.np',
-    'www.bharatamgain.com.np'
 ]
 
 
