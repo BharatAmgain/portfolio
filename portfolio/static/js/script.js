@@ -808,5 +808,53 @@ window.Portfolio = {
     closeProjectModal
 };
 
+function initOrbitalSkills() {
+    const skills = [
+        { name: 'Python', icon: 'python' },
+        { name: 'Django', icon: 'python' },
+        { name: 'ReactJS', icon: 'react' },
+        { name: 'JavaScript', icon: 'js' },
+        { name: 'HTML5', icon: 'html5' },
+        { name: 'CSS3', icon: 'css3-alt' },
+        { name: 'Tailwind CSS', icon: 'css3' },
+        { name: 'Bootstrap', icon: 'bootstrap' },
+        { name: 'Postman', icon: 'postman' },
+        { name: 'Figma', icon: 'figma' },
+        { name: 'PHP', icon: 'php' },
+        { name: 'Git', icon: 'git-alt' },
+        { name: 'GitHub', icon: 'github' },
+        { name: 'Docker', icon: 'docker' }
+    ];
+
+    const orbitContainer = document.querySelector('.orbiting-skills');
+    if (orbitContainer) {
+        orbitContainer.innerHTML = '';
+
+        skills.forEach((skill, index) => {
+            const angle = (index / skills.length) * 2 * Math.PI;
+            const radius = 150;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+
+            const skillOrb = document.createElement('div');
+            skillOrb.className = `skill-orb orb-${index + 1}`;
+            skillOrb.style.cssText = `
+                transform: translate(${x}px, ${y}px);
+                animation-duration: ${20 + index * 2}s;
+            `;
+
+            skillOrb.innerHTML = `
+                <div class="skill-content">
+                    <i class="fab fa-${skill.icon}"></i>
+                    <span class="skill-name">${skill.name}</span>
+                </div>
+            `;
+
+            orbitContainer.appendChild(skillOrb);
+        });
+    }
+}
+
+
 // Initialize mobile navigation
 initMobileNavigation();
