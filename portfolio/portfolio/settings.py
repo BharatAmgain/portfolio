@@ -20,7 +20,7 @@ ALLOWED_HOSTS = [
     'www.bharatamgain.com.np',
     'bharatamgain.onrender.com',
     'localhost',
-    '127.0.0.1:8000',
+    '127.0.0.1',
     '.onrender.com',
 ]
 
